@@ -1,0 +1,213 @@
+/* base.css (You might want to have a separate base.css or include these in your existing base.css) */
+:root {
+    --brand-color: #8fbc8f; /* Muted Green/Teal Accent */
+    --text-primary: #333333; /* Dark Gray */
+    --text-secondary: #666666; /* Lighter Gray */
+    --bg-primary: #ffffff; /* White */
+    --bg-secondary: #f5f5f5; /* Very Light Gray */
+    --white: #ffffff;
+    --font-main: 'Montserrat', sans-serif; /* Consistent Font */
+    --shadow-default: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle Shadow */
+    --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-light: #e0e0e0;
+}
+
+body {
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* layout.css */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-header {
+    background-color: var(--bg-primary);
+    padding: 10px 20px;
+    box-shadow: var(--shadow-default);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--brand-color);
+}
+
+/* resume.css (Specific to this page) */
+.resume-section {
+    background-color: var(--bg-primary);
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-default);
+}
+
+.resume-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.resume-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.resume-header .summary {
+    font-size: 1.1em;
+    color: var(--text-secondary);
+}
+
+/* Work Experience & Education */
+.work-experience h2,
+.education h2,
+.skills h2,
+.contact-info h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 10px;
+}
+
+.job,
+.edu-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.job-period,
+.edu-period {
+    width: 120px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    text-align: right;
+    padding-right: 20px;
+}
+
+.job-details h3,
+.edu-details h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.job-details p,
+.edu-details p {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.job-details ul,
+.edu-details ul {
+    list-style: disc;
+    margin-left: 20px;
+    color: var(--text-secondary);
+}
+
+/* Skills */
+.skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.skills-list li {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: 5px;
+    font-size: 0.9em;
+}
+
+/* Contact Info */
+.contact-info p {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.contact-info a {
+    color: var(--brand-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: darken(var(--brand-color), 10%);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    margin-top: 30px;
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        margin-top: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .job,
+    .edu-item {
+        flex-direction: column;
+    }
+
+    .job-period,
+    .edu-period {
+        width: 100%;
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 5px;
+    }
+}

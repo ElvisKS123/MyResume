@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <meta name="description" content="resume, showcasing work experience, education, skills, and expertise in software engineering, web development, and more.">
+    <link rel="stylesheet" href="css/resume.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">Elvis SHIMWA</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="resume-section"> 
+            <header class="resume-header">
+                <h1>Resume</h1>
+                <p class="summary">
+                    A driven and detail-oriented aspiring software engineer with a strong passion for building innovative, user-friendly web development. Eager to apply technical skills and contribute meaningfully to impactful and challenging projects.
+                </p>
+            </header>
+
+            <section class="work-experience">
+                <h2>Work Experience</h2>
+
+                <article class="job">
+                    <div class="job-period">2023 - Present</div>
+                    <div class="job-details">
+                        <h3>EXMACO LTD CO – Full-Stack Developer</h3>
+                        <p>Built and maintained full-stack web features to support daily operations and enhance user satisfaction.</p>
+                        <ul>
+                            <li>Managed sales and inventory data through accurate backend integration.</li>
+                            <li>Developed and optimized web applications using HTML, CSS, JavaScript, and Python.</li>
+                            <li>Assisted with data analysis and reporting to improve business performance.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="job"> <!-- Use article for each job -->
+                    <div class="job-period">2021 - 2024</div>
+                    <div class="job-details">
+                        <h3>ViandFOUR Bakery – Software Developer</h3>
+                        <p>Developed and maintained the bakery's website, enhancing user experience and increasing online orders and sales.</p>
+                        <ul>
+                            <li>Designed and implemented responsive web pages using HTML, CSS, and JavaScript.</li>
+                            <li>Integrated payment gateways and optimized the website for better performance.</li>
+                            <li>Collaborated with the marketing team to improve online visibility and customer engagement.</li>
+                        <ul>
+                    </div>
+                </article>
+            </section>
+
+            <section class="education">
+                <h2>Education</h2>
+
+                <article class="edu-item"> <!-- Use article for each education item -->
+                    <div class="edu-period">2024 - Present</div>
+                    <div class="edu-details">
+                        <h3>African Leadership University / Bachelor’s Degree</h3>
+                        <p>Pursuing a degree in software engineering </p>
+                        <ul>
+                            <li>GPA: 3.2/4.0</li>
+                            <li>Relevant Coursework: Data Structures and Algorithms, Fontend Web Development, Database Management, Linux amd Python Programming .</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="edu-item"> <!-- Use article for each education item -->
+                    <div class="edu-period">2020 - 2023</div>
+                    <div class="edu-details">
+                        <h3>Blues International School / High School Diploma</h3>
+                        <p>Majored in Physics , Chemistry, and Mathematics, and took part in various extracurricular activities. </p>
+                        <ul>
+                            <li>Graduated with high grades in all subjects.</li>
+                            <li>Participated in the school's sports team, including basketball, soccer, and track and field.</li>
+                            <li>Engaged in extracurricular activities such as Club.</li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+
+            <section class="skills">
+                <h2>Skills & Expertise</h2>
+                <ul class="skills-list"> <!-- Added a class for styling -->
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>SQL</li>
+                    <li>Linux</li>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>Web Development</li>
+                    <li>Responsive Design</li>
+                    
+                </ul>
+            
+
+    <footer>
+        <div class="copyright">
+            © 2025 Elvis SHIMWA
+            All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const Logo = document.querySelector('.logo');
+        if (Logo) {
+            Logo.style.cursor = 'pointer';
+            Logo.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>

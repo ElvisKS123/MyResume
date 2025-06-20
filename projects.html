@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <meta name="description" content="web development projects, including a Grade Calculator and the Nexus Irrigation System prototype.">
+    <link rel="stylesheet" href="css/project.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">Elvis SHIMWA</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="projects-section"> <!-- Added a section to wrap all projects -->
+            <header class="projects-header"> <!-- Header for the projects section -->
+                <h1>Projects</h1>
+                <p class="subtitle">Here are some of my works.</p>
+            </header>
+
+            <div class="projects-grid"> <!-- Added a grid container for projects -->
+                <!-- Project 1 -->
+                <article class="project-card"> <!-- Use article for individual projects -->
+                    
+                    <div class="project-details">
+                        <h2>Grade Calculator</h2>
+                        <p class="project-description">
+                            This is a web app that I built to help students calculate their GPA based on their grades and credits.
+                        </p>
+                        <p class="project-description">
+                            It allows users to input their grades and credits, and it calculates the GPA automatically.
+                        </p>
+                        <a href="https://github.com/hirwakelly869/JavaScript-GPA-Calculator---Group-Project.git" target="_blank" class="project-link">
+                            View Code on GitHub
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card"> <!-- Use article for individual projects -->
+                    <div class="project-details">
+                        <h2>Submission Reminder App</h2>
+                        <p class="project-description">
+                            This is a prototype of a web app that I built to help students keep track of their assignments and deadlines.
+                        </p>
+                        <a href="https://github.com/ElvisKS123/submission_reminder_app_Kagaba123.git" target="_blank" class="project-link">
+                            View Prototype Code
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>2025 © Elvis SHIMWA. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const Logo = document.querySelector('.logo');
+        if (Logo) {
+            Logo.style.cursor = 'pointer';
+            Logo.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>

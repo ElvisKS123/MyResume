@@ -1,0 +1,162 @@
+/* base.css (You might want to have a separate base.css or include these in your existing base.css) */
+:root {
+    --brand-color: #8fbc8f; /* Muted Green/Teal Accent */
+    --text-primary: #333333; /* Dark Gray */
+    --text-secondary: #666666; /* Lighter Gray */
+    --bg-primary: #ffffff; /* White */
+    --bg-secondary: #f5f5f5; /* Very Light Gray */
+    --white: #ffffff;
+    --font-main: 'Montserrat', sans-serif; /* Consistent Font */
+    --shadow-default: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle Shadow */
+    --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-light: #e0e0e0;
+}
+
+body {
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* layout.css */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-header {
+    background-color: var(--bg-primary);
+    padding: 10px 20px;
+    box-shadow: var(--shadow-default);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--brand-color);
+}
+
+/* contact.css (Specific to this page) */
+.contact-section {
+    background-color: var(--bg-primary);
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-default);
+    text-align: center; /* Center content within the section */
+}
+
+.title h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+/* Contact Info */
+.contact-info {
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.contact-item {
+    margin-bottom: 20px;
+}
+
+.contact-item strong {
+    display: block; /* Put label on its own line */
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-primary); /* Make the label darker */
+}
+
+.contact-info a {
+    color: var(--brand-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: darken(var(--brand-color), 10%);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    margin-top: 30px;
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        margin-top: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    .contact-section {
+        padding: 20px;
+    }
+
+    .title h1 {
+        font-size: 2em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    .contact-info {
+        font-size: 1.1em;
+    }
+}
