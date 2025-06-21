@@ -1,13 +1,13 @@
-/* base.css (You might want to have a separate base.css or include these in your existing base.css) */
+/* base.css */
 :root {
-    --brand-color: #8fbc8f; /* Muted Green/Teal Accent */
-    --text-primary: #333333; /* Dark Gray */
-    --text-secondary: #666666; /* Lighter Gray */
-    --bg-primary: #ffffff; /* White */
-    --bg-secondary: #f5f5f5; /* Very Light Gray */
+    --brand-color: #8fbc8f; 
+    --text-primary: #333333; 
+    --text-secondary: #666666; 
+    --bg-primary: #ffffff; 
+    --bg-secondary: #f5f5f5;
     --white: #ffffff;
-    --font-main: 'Montserrat', sans-serif; /* Consistent Font */
-    --shadow-default: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle Shadow */
+    --font-main: 'Montserrat', sans-serif; 
+    --shadow-default: 0 2px 4px rgba(0, 0, 0, 0.05); 
     --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.1);
     --border-light: #e0e0e0;
 }
@@ -59,96 +59,42 @@ nav a:hover {
     color: var(--brand-color);
 }
 
-/* resume.css (Specific to this page) */
-.resume-section {
+/* contact.css */
+.contact-section {
     background-color: var(--bg-primary);
     padding: 30px;
     border-radius: 5px;
     box-shadow: var(--shadow-default);
+    text-align: center; 
 }
 
-.resume-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.resume-header h1 {
+.title h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
 }
 
-.resume-header .summary {
+.subtitle {
     font-size: 1.1em;
     color: var(--text-secondary);
-}
-
-/* Work Experience & Education */
-.work-experience h2,
-.education h2,
-.skills h2,
-.contact-info h2 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--border-light);
-    padding-bottom: 10px;
-}
-
-.job,
-.edu-item {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.job-period,
-.edu-period {
-    width: 120px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    text-align: right;
-    padding-right: 20px;
-}
-
-.job-details h3,
-.edu-details h3 {
-    font-size: 1.2em;
-    margin-bottom: 5px;
-}
-
-.job-details p,
-.edu-details p {
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-}
-
-.job-details ul,
-.edu-details ul {
-    list-style: disc;
-    margin-left: 20px;
-    color: var(--text-secondary);
-}
-
-/* Skills */
-.skills-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.skills-list li {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    padding: 8px 12px;
-    border-radius: 4px;
-    margin: 5px;
-    font-size: 0.9em;
+    margin-bottom: 30px;
 }
 
 /* Contact Info */
-.contact-info p {
-    margin-bottom: 10px;
+.contact-info {
+    font-size: 1.2em;
+    line-height: 1.8;
     color: var(--text-secondary);
+}
+
+.contact-item {
+    margin-bottom: 20px;
+}
+
+.contact-item strong {
+    display: block; 
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-primary); /* Make the label darker */
 }
 
 .contact-info a {
@@ -198,16 +144,19 @@ footer {
         margin: 5px 0;
     }
 
-    .job,
-    .edu-item {
-        flex-direction: column;
+    .contact-section {
+        padding: 20px;
     }
 
-    .job-period,
-    .edu-period {
-        width: 100%;
-        text-align: left;
-        padding-right: 0;
-        margin-bottom: 5px;
+    .title h1 {
+        font-size: 2em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    .contact-info {
+        font-size: 1.1em;
     }
 }

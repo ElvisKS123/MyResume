@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Smooth Scrolling (Event Delegation) ---
-    const mainHeader = document.querySelector('.main-header'); // Or whatever your header's container is
+    const mainHeader = document.querySelector('.main-header');
     if (mainHeader) {
         mainHeader.addEventListener('click', function(e) {
             const target = e.target;
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Update Current Year ---
+    // ---  Current Year ---
     const currentYearElement = document.getElementById('current-year');
     if (currentYearElement) {
         currentYearElement.textContent = new Date().getFullYear();
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         Name.addEventListener('mouseleave', () => {
-            Name.style.color = ''; // Revert to the original color
+            Name.style.color = '';
         });
     }
 
