@@ -31,15 +31,12 @@ body {
 }
 
 header {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    padding: 20px; 
+    
     background-color: var(--bg-primary);
     position: sticky;
-    top: 0;
+    top: 0.5;
     z-index: 1000;
-    box-shadow: var(--shadow-default); 
+    transition: top 0.3s ease-in-out ; 
 }
 
 .main-nav {
@@ -66,7 +63,7 @@ footer {
 
 /* components.css */
 .logo {
-    font-weight: 520; 
+    font-weight: 500; 
     font-size: 1.8rem; 
     font-family: Montserrat(--font-logo); 
     cursor: pointer;
