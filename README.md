@@ -1,6 +1,3 @@
-Sure! Here's your updated version with **"MyResume Website"** instead of "Personal Portfolio Website" and consistent language updates throughout:
-
----
 
 ## 📄 **MyResume Website**
 
