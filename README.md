@@ -23,9 +23,19 @@ https://elvisks123.github.io/MyResume/
 
 ### 🛠️ **Technologies Used**
 
-* HTML
-* CSS
-* JavaScript
+* React + TypeScript (Vite)
+* Tailwind CSS v4 and shadcn/ui (Radix)
+* Framer Motion, Lucide icons, Sonner
+
+### 💻 **Run locally**
+
+```bash
+npm install
+npm run dev
+```
+
+Pushing to `main` builds the site and publishes it to GitHub Pages through `.github/workflows/deploy.yml`.
+In the repository settings, set **Pages → Source** to **GitHub Actions**.
 
 ---
 
