@@ -21,25 +21,11 @@ function Hero() {
     <section>
       <div className="grid items-center gap-10 py-4 sm:py-8 lg:grid-cols-[1.35fr_1fr]">
         <div>
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}>
-            <Badge variant="outline" className="h-6 gap-1.5 bg-background/70 px-2.5 text-xs text-muted-foreground">
-              <Sparkles className="text-brand" /> {profile.roles}
-            </Badge>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease, delay: 0.05 }}
-            className="mt-6 text-base font-medium text-muted-foreground"
-          >
-            My name is {profile.name}
-          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: 0.1 }}
-            className="mt-2 text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-5xl lg:text-6xl"
+            transition={{ duration: 0.6, ease }}
+            className="text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-5xl lg:text-6xl"
           >
             Creative Coder, <span className="text-brand">Consistent Builder.</span>
           </motion.h1>
