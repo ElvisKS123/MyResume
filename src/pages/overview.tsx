@@ -127,9 +127,9 @@ export default function OverviewPage() {
         ))}
       </section>
 
-      <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+      <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
-          <Card className="h-full">
+          <Card>
             <CardHeader>
               <CardTitle className="text-navy">Recent experience</CardTitle>
               <CardDescription>Work history</CardDescription>
