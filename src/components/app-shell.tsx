@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "@/components/brand-icons"
+import { BackToTop } from "@/components/back-to-top"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -425,6 +426,8 @@ export function AppShell({ children }: { children?: ReactNode }) {
             </div>
           </div>
         </footer>
+
+        <BackToTop />
       </div>
     </div>
   )
