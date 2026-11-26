@@ -2,8 +2,6 @@ import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "rea
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useTheme } from "@/components/theme-provider"
 import {
-  ArrowUpRight,
-  Download,
   FileText,
   FolderGit2,
   LayoutDashboard,
@@ -16,26 +14,21 @@ import {
 } from "lucide-react"
 
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "@/components/brand-icons"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { allSkills, contact, education, experience, profile, projects } from "@/data/resume"
 import { cn } from "@/lib/utils"
-import photo from "@/assets/profile.jpg"
 
 const navItems = [
   { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
@@ -67,7 +60,7 @@ export function Logo({ className }: { className?: string }) {
 /* Horizontal links for the navbar (desktop) */
 function NavbarLinks() {
   return (
-    <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+    <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
       {navItems.map(({ to, label, end }) => (
         <NavLink
           key={to}
@@ -117,9 +110,6 @@ function MobileMenuBody({ onNavigate }: { onNavigate?: () => void }) {
     <div className="flex h-full flex-col gap-6 p-4">
       <div className="px-1 pt-1">
         <Logo />
-      </div>
-      <div className="sm:hidden">
-        <SearchBox />
       </div>
       <div className="space-y-2">
         <p className="px-3 text-xs font-medium text-muted-foreground">Menu</p>
@@ -175,19 +165,19 @@ function useSearchIndex(): SearchItem[] {
   )
 }
 
-function SearchBox() {
+function SearchDialog() {
   const index = useSearchIndex()
   const navigate = useNavigate()
   const listId = useId()
+  const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState("")
-  const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return []
-    return index.filter((i) => i.label.toLowerCase().includes(q) || i.hint.toLowerCase().includes(q)).slice(0, 8)
+    if (!q) return index.filter((i) => i.hint === "Page" || i.hint === "Project").slice(0, 8)
+    return index.filter((i) => i.label.toLowerCase().includes(q) || i.hint.toLowerCase().includes(q)).slice(0, 10)
   }, [index, query])
 
   useEffect(() => {
@@ -195,99 +185,124 @@ function SearchBox() {
       const typing = e.target instanceof HTMLElement && e.target.closest("input, textarea, [contenteditable]")
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "/" && !typing)) {
         e.preventDefault()
-        inputRef.current?.focus()
+        setOpen((o) => !o)
       }
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
   }, [])
 
-  const go = (item: SearchItem) => {
-    navigate(item.to, { state: item.section ? { section: item.section } : undefined })
-    setQuery("")
-    setOpen(false)
-    inputRef.current?.blur()
+  const onOpenChange = (next: boolean) => {
+    setOpen(next)
+    if (!next) {
+      setQuery("")
+      setActive(0)
+    }
   }
 
-  const showList = open && query.trim().length > 0
+  const go = (item: SearchItem) => {
+    onOpenChange(false)
+    navigate(item.to, { state: item.section ? { section: item.section } : undefined })
+  }
+
+  useEffect(() => {
+    document.getElementById(`${listId}-${active}`)?.scrollIntoView({ block: "nearest" })
+  }, [active, listId])
 
   return (
-    <div className="relative w-full max-w-md">
-      <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-      <label htmlFor="global-search" className="sr-only">
-        Search the resume
-      </label>
-      <Input
-        id="global-search"
-        ref={inputRef}
-        type="search"
-        role="combobox"
-        aria-expanded={showList}
-        aria-controls={listId}
-        aria-autocomplete="list"
-        aria-activedescendant={showList && results[active] ? `${listId}-${active}` : undefined}
-        autoComplete="off"
-        placeholder="Search skills, roles, projects…"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value)
-          setActive(0)
-          setOpen(true)
-        }}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setTimeout(() => setOpen(false), 120)}
-        onKeyDown={(e) => {
-          if (e.key === "ArrowDown") {
-            e.preventDefault()
-            setActive((a) => Math.min(a + 1, results.length - 1))
-          } else if (e.key === "ArrowUp") {
-            e.preventDefault()
-            setActive((a) => Math.max(a - 1, 0))
-          } else if (e.key === "Enter" && results[active]) {
-            e.preventDefault()
-            go(results[active])
-          } else if (e.key === "Escape") {
-            setQuery("")
-            setOpen(false)
-          }
-        }}
-        className="h-9 bg-background pr-12 pl-9 shadow-xs [&::-webkit-search-cancel-button]:hidden"
-      />
-      <kbd className="pointer-events-none absolute top-1/2 right-2.5 hidden -translate-y-1/2 rounded-md border bg-muted px-1.5 py-0.5 font-sans text-[11px] text-muted-foreground sm:block">
-        Ctrl K
-      </kbd>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="icon" aria-label="Search">
+              <Search className="size-4" />
+            </Button>
+          </DialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent>Search</TooltipContent>
+      </Tooltip>
 
-      {showList && (
-        <ul
-          id={listId}
-          role="listbox"
-          className="absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded-xl border bg-popover p-1 text-popover-foreground shadow-lg animate-in fade-in-0 zoom-in-95"
-        >
-          {results.length === 0 ? (
-            <li className="px-3 py-6 text-center text-sm text-muted-foreground">No results for “{query}”</li>
-          ) : (
-            results.map((r, i) => (
-              <li
-                key={`${r.hint}-${r.label}`}
-                id={`${listId}-${i}`}
-                role="option"
-                aria-selected={i === active}
-                onMouseDown={(e) => e.preventDefault()}
-                onMouseEnter={() => setActive(i)}
-                onClick={() => go(r)}
-                className={cn(
-                  "flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm",
-                  i === active && "bg-accent"
-                )}
+      <DialogContent showCloseButton={false} className="top-[15%] translate-y-0 gap-0 overflow-hidden p-0 sm:max-w-xl">
+        <DialogTitle className="sr-only">Search the resume</DialogTitle>
+        <DialogDescription className="sr-only">
+          Search pages, experience, education, skills and projects.
+        </DialogDescription>
+
+        <div className="flex items-center gap-3 border-b px-4">
+          <Search className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+          <input
+            ref={inputRef}
+            type="text"
+            role="combobox"
+            aria-label="Search the resume"
+            aria-expanded="true"
+            aria-controls={listId}
+            aria-autocomplete="list"
+            aria-activedescendant={results[active] ? `${listId}-${active}` : undefined}
+            autoComplete="off"
+            autoFocus
+            placeholder="Search skills, roles, projects…"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setActive(0)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowDown") {
+                e.preventDefault()
+                setActive((a) => Math.min(a + 1, results.length - 1))
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault()
+                setActive((a) => Math.max(a - 1, 0))
+              } else if (e.key === "Enter" && results[active]) {
+                e.preventDefault()
+                go(results[active])
+              }
+            }}
+            className="h-14 w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
+          />
+        </div>
+
+        <div className="max-h-[min(60vh,420px)] overflow-y-auto p-2">
+          <div className="flex items-center justify-between px-3 pt-1 pb-2">
+            <p className="text-xs font-medium text-muted-foreground">{query.trim() ? "Results" : "Suggestions"}</p>
+            <button
+                type="button"
+                className="rounded-sm text-xs font-medium text-brand hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                onClick={() => {
+                  setQuery("")
+                  setActive(0)
+                  inputRef.current?.focus()
+                }}
               >
-                <span className="truncate">{r.label}</span>
-                <span className="shrink-0 text-xs text-muted-foreground">{r.hint}</span>
-              </li>
-            ))
+                Clear all
+              </button>
+          </div>
+          {results.length === 0 ? (
+            <p className="px-3 py-10 text-center text-sm text-muted-foreground">No results for “{query}”</p>
+          ) : (
+            <ul id={listId} role="listbox" aria-label="Search results">
+              {results.map((r, i) => (
+                <li
+                  key={`${r.hint}-${r.label}`}
+                  id={`${listId}-${i}`}
+                  role="option"
+                  aria-selected={i === active}
+                  onMouseMove={() => setActive(i)}
+                  onClick={() => go(r)}
+                  className={cn(
+                    "flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm",
+                    i === active && "bg-accent text-accent-foreground"
+                  )}
+                >
+                  <span className="truncate">{r.label}</span>
+                </li>
+              ))}
+            </ul>
           )}
-        </ul>
-      )}
-    </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -325,55 +340,10 @@ function ThemeMenu() {
   )
 }
 
-/* ---------- Profile menu ---------- */
-function ProfileMenu() {
-  const navigate = useNavigate()
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-9 gap-2 rounded-full pr-1 pl-1 sm:pr-3" aria-label="Profile menu">
-          <Avatar className="size-7">
-            <AvatarImage src={photo} alt="" className="object-cover" />
-            <AvatarFallback>{profile.initials}</AvatarFallback>
-          </Avatar>
-          <span className="hidden text-sm font-medium text-navy md:inline">Elvis</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-60">
-        <DropdownMenuLabel className="font-normal">
-          <p className="text-sm font-medium text-foreground">{profile.name}</p>
-          <p className="truncate text-xs text-muted-foreground">{contact.email}</p>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem onSelect={() => navigate("/resume", { state: { print: true } })}>
-            <Download /> Download resume (PDF)
-          </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => navigate("/contact")}>
-            <Mail /> Contact
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          {socials.slice(0, 2).map(({ label, href, icon: Icon }) => (
-            <DropdownMenuItem key={label} asChild>
-              <a href={href} target="_blank" rel="noopener noreferrer">
-                <Icon /> {label}
-                <ArrowUpRight className="ml-auto text-muted-foreground" />
-              </a>
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
-
 /* ---------- Shell ---------- */
 export function AppShell({ children }: { children?: ReactNode }) {
   const [sheetOpen, setSheetOpen] = useState(false)
   const location = useLocation()
-  const navigate = useNavigate()
 
   // Scroll to a requested section (from search), otherwise to the top.
   useEffect(() => {
@@ -400,7 +370,7 @@ export function AppShell({ children }: { children?: ReactNode }) {
       <div>
         {/* Navbar */}
         <header className="no-print sticky top-0 z-30 border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/70">
-          <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4 sm:px-6 lg:px-8">
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="lg:hidden" aria-label="Open navigation">
@@ -420,20 +390,9 @@ export function AppShell({ children }: { children?: ReactNode }) {
 
             <NavbarLinks />
 
-            <div className="hidden min-w-0 flex-1 justify-end sm:flex lg:max-w-xs lg:ml-auto">
-              <SearchBox />
-            </div>
-
-            <div className="ml-auto flex items-center gap-2 lg:ml-0">
-              <Button
-                variant="outline"
-                className="hidden h-9 xl:inline-flex"
-                onClick={() => navigate("/resume", { state: { print: true } })}
-              >
-                <Download className="size-4" /> Resume PDF
-              </Button>
+            <div className="ml-auto flex items-center gap-2">
+              <SearchDialog />
               <ThemeMenu />
-              <ProfileMenu />
             </div>
           </div>
         </header>

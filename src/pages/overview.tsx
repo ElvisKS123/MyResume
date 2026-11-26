@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowRight, Briefcase, Code2, FileText, GraduationCap, Mail, Sparkles } from "lucide-react"
+import { ArrowRight, Briefcase, Code2, FileText, GraduationCap, Mail, Route, Sparkles } from "lucide-react"
 
 import { Reveal } from "@/components/reveal"
 import { StatusBadge } from "@/components/status-badge"
@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { allSkills, education, experience, profile, projects, skillGroups } from "@/data/resume"
+import { allSkills, education, experience, journey, profile, projects, skillGroups } from "@/data/resume"
 import photo from "@/assets/profile.jpg"
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -126,6 +126,29 @@ export default function OverviewPage() {
           </Reveal>
         ))}
       </section>
+
+      <Reveal>
+        <section id="journey" aria-labelledby="journey-title">
+          <Card>
+            <CardHeader>
+              <CardTitle id="journey-title" className="flex items-center gap-2 text-navy">
+                <Route className="size-4 text-brand" aria-hidden /> My journey
+              </CardTitle>
+              <CardDescription>How I found my way into technology</CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+              <div className="space-y-4 text-[15px] leading-relaxed text-muted-foreground">
+                {journey.paragraphs.map((p) => (
+                  <p key={p.slice(0, 24)}>{p}</p>
+                ))}
+              </div>
+              <blockquote className="self-start rounded-lg border-l-4 border-brand bg-surface-1 p-5 text-base leading-relaxed font-medium text-navy dark:bg-muted/40">
+                {journey.closing}
+              </blockquote>
+            </CardContent>
+          </Card>
+        </section>
+      </Reveal>
 
       <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>

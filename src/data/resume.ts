@@ -19,6 +19,16 @@ export const profile = {
   availability: "collaborations, job opportunities, or any inquiries",
 }
 
+export const journey = {
+  paragraphs: [
+    "My journey into technology wasn't something I originally planned. Growing up, I dreamed of becoming a Chemical Engineer, fascinated by science and the idea of creating solutions through engineering. However, as I explored different fields and discovered the power of technology, my interests began to change.",
+    "Today, I am pursuing Software Engineering at African Leadership University, where I am developing my skills in software development, problem-solving, and building digital solutions.",
+    "Although my career direction changed, my ambition remained the same: to use engineering and innovation to solve real-world problems. My goal is to build technology that creates meaningful impact in Rwanda and across Africa, while growing into a software engineer, entrepreneur, and technology founder.",
+  ],
+  closing:
+    "I believe that changing direction does not mean losing your original dream. Sometimes, it means discovering a new way to achieve an even bigger one.",
+}
+
 export const contact = {
   phoneDisplay: "+(250)-787-932-359",
   phoneShort: "+250 787 932 359",
