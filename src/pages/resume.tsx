@@ -1,24 +1,13 @@
-import { useEffect, type ReactNode } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import { Briefcase, Download, FileText, GraduationCap, Mail, Phone } from "lucide-react"
-import { toast } from "sonner"
+import type { ReactNode } from "react"
+import { Briefcase, FileText, GraduationCap } from "lucide-react"
 
-import { GithubIcon, LinkedinIcon } from "@/components/brand-icons"
 import { PageHeader, Reveal } from "@/components/reveal"
 import { StatusBadge } from "@/components/status-badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { contact, education, experience, profile, skillGroups } from "@/data/resume"
-import photo from "@/assets/profile.jpg"
-
-function printResume() {
-  toast.info("Opening print dialog", { description: "Choose “Save as PDF” to download your copy." })
-  setTimeout(() => window.print(), 350)
-}
+import { education, experience, profile, skillGroups } from "@/data/resume"
 
 function SectionTitle({ id, icon: Icon, children }: { id: string; icon: typeof Briefcase; children: string }) {
   return (
@@ -80,17 +69,6 @@ function Entry({
 }
 
 export default function ResumePage() {
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  // "Resume PDF" from the top bar lands here with { print: true }.
-  useEffect(() => {
-    if ((location.state as { print?: boolean } | null)?.print) {
-      navigate(location.pathname, { replace: true, state: null })
-      printResume()
-    }
-  }, [location, navigate])
-
   const timeline = [
     ...experience.map((e) => ({ kind: "Work", title: e.role, org: e.org, start: e.start, end: e.end, status: e.status })),
     ...education.map((e) => ({ kind: "Education", title: e.degree, org: e.school, start: e.start, end: e.end, status: e.status })),
@@ -102,56 +80,7 @@ export default function ResumePage() {
         eyebrow="Curriculum vitae"
         title="Resume"
         description={`${profile.name} — Software Engineering student and Full-Stack Developer.`}
-        actions={
-          <Button onClick={printResume} className="h-9">
-            <Download /> Download PDF
-          </Button>
-        }
       />
-
-      {/* Identity + contact */}
-      <Reveal>
-        <Card className="print-plain">
-          <CardContent className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-4">
-              <Avatar className="no-print size-16 rounded-xl">
-                <AvatarImage src={photo} alt="Portrait of Elvis Shimwa" className="object-cover" />
-                <AvatarFallback className="rounded-xl">{profile.initials}</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="text-xl font-semibold text-navy">{profile.name}</p>
-                <p className="text-sm text-muted-foreground">Full-Stack Developer · Software Engineering student</p>
-              </div>
-            </div>
-            <ul className="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Phone className="size-4 shrink-0" aria-hidden />
-                <a href={contact.phoneHref} className="tabular-nums hover:text-foreground">
-                  {contact.phoneShort}
-                </a>
-              </li>
-              <li className="flex min-w-0 items-center gap-2 text-muted-foreground">
-                <Mail className="size-4 shrink-0" aria-hidden />
-                <a href={`mailto:${contact.email}`} className="truncate hover:text-foreground">
-                  {contact.email}
-                </a>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <GithubIcon className="size-4 shrink-0" />
-                <a href={contact.github.href} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
-                  github.com/{contact.github.handle}
-                </a>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <LinkedinIcon className="size-4 shrink-0" />
-                <a href={contact.linkedin.href} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
-                  linkedin.com/{contact.linkedin.handle}
-                </a>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-      </Reveal>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
         <div className="min-w-0 space-y-10">
