@@ -200,7 +200,7 @@ export default function ContactPage() {
                 <Card className="py-0 transition-shadow hover:shadow-md">
                   <CardContent className="flex items-center gap-4 px-4 py-3.5">
                     <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface-1 text-brand">
-                      <Icon className="size-[18px]" aria-hidden />
+                      <Icon className="size-4.5" aria-hidden />
                     </span>
                     <div className="min-w-0 flex-1">
                       <p className="text-xs font-medium text-muted-foreground">{label}</p>

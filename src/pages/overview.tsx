@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { allSkills, education, experience, journey, profile, projects, skillGroups } from "@/data/resume"
-import photo from "@/assets/profile.jpg"
+import photo from "@/assets/profile-cutout.webp"
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -63,18 +63,18 @@ function Hero() {
           transition={{ duration: 0.7, ease, delay: 0.15 }}
           className="relative mx-auto grid w-full max-w-sm place-items-center"
         >
-          {/* Circular portrait */}
-          <div className="relative aspect-square w-64 overflow-hidden rounded-full bg-muted shadow-2xl shadow-[#142238]/20 sm:w-72 lg:w-80">
-            {!loaded && <Skeleton className="absolute inset-0 rounded-full" />}
+          {/* Cut-out portrait that fades into the page */}
+          <div className="relative aspect-square w-72 sm:w-80 lg:w-[22rem]">
+            {!loaded && <Skeleton className="absolute inset-0 rounded-xl" />}
             <img
               src={photo}
               alt="Portrait of Elvis Shimwa"
               onLoad={() => setLoaded(true)}
-              className="size-full object-cover object-[50%_25%] transition-opacity duration-500 data-[loaded=false]:opacity-0"
+              className="size-full object-contain transition-opacity duration-500 data-[loaded=false]:opacity-0"
               data-loaded={loaded}
             />
           </div>
-          <figcaption className="mt-5 text-center">
+          <figcaption className="-mt-2 text-center">
             <p className="text-sm font-semibold text-navy">{profile.name}</p>
             <p className="text-xs text-muted-foreground">{profile.title}</p>
           </figcaption>
