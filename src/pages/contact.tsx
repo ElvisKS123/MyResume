@@ -1,13 +1,11 @@
 import { useState, type FormEvent } from "react"
-import { Check, Copy, Info, Mail, Phone, Send } from "lucide-react"
+import { Check, Copy, Mail, Phone, Send } from "lucide-react"
 import { toast } from "sonner"
 
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "@/components/brand-icons"
 import { PageHeader, Reveal } from "@/components/reveal"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -59,10 +57,9 @@ function MessageForm() {
   const [email, setEmail] = useState("")
   const [topic, setTopic] = useState(topics[0])
   const [message, setMessage] = useState("")
-  const [copyToo, setCopyToo] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const onSubmit = async (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     const next: Record<string, string> = {}
     if (!name.trim()) next.name = "Please enter your name."
@@ -72,13 +69,6 @@ function MessageForm() {
     if (Object.keys(next).length) return
 
     const body = `${message}\n\n— ${name} (${email})`
-    if (copyToo) {
-      try {
-        await navigator.clipboard.writeText(body)
-      } catch {
-        /* clipboard unavailable; the email draft still opens */
-      }
-    }
     const subject = `${topic} — from ${name}`
     window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     toast.success("Opening your email app", { description: "Your message is ready to send." })
@@ -92,12 +82,6 @@ function MessageForm() {
       </CardHeader>
       <CardContent>
         <form noValidate onSubmit={onSubmit} className="space-y-5">
-          <Alert className="border-[#184f90]/20 bg-[#184f90]/5">
-            <Info />
-            <AlertTitle>Sends from your own email app</AlertTitle>
-            <AlertDescription>Submitting opens a pre-filled email to {contact.email}.</AlertDescription>
-          </Alert>
-
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Your name</Label>
@@ -169,13 +153,6 @@ function MessageForm() {
                 A few lines about the role or project is perfect.
               </p>
             )}
-          </div>
-
-          <div className="flex items-center gap-2.5">
-            <Checkbox id="copy" checked={copyToo} onCheckedChange={(v) => setCopyToo(v === true)} />
-            <Label htmlFor="copy" className="font-normal text-muted-foreground">
-              Also copy my message to the clipboard
-            </Label>
           </div>
 
           <Button type="submit" className="h-10 w-full px-4 sm:w-auto">

@@ -155,7 +155,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Selected work" title="Projects" description="Here are some of my works." />
+      <PageHeader eyebrow="My Work" title="Projects" description="Here are some of my works." />
 
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
